@@ -1,0 +1,20 @@
+- JWT (Json Web Token) gồm 3 phần:
+    + header: loại token và thuật toán để kí token
+    + payload: thông tin chính của token
+    + signature: hash của header cộng payload kèm theo secret_salt
+
+- Spring Security Architecture:
+    + request được truyền vào sẽ đi qua SecurityFilterChain
+    + SecurityFilterChain sẽ form ra các thông tin như Username, Password, AuthToken
+    + sau đó đi qua AuthManager
+    + AuthManager sẽ quản lý các AuthProvider
+    + mỗi AuthProvider sẽ phụ trách 1 Auth
+    + ví dụ như 1 AuthProvider phụ trách Username, Password, 1 AuthProvider phụ trách JWT
+    + mỗi AuthProvider cần 1 PasswordEncoder
+    + UserDetailService là 1 interface của Spring Security
+    + nhiệm vụ của UserDetailService là get thông tin của User
+    + từ Password đó sẽ lấy UserDetail
+    + khi đó, UserDetail sẽ mang theo Password
+    + PasswordEncoder sẽ match xem cái Password đó đúng hay sai, quyết định Auth đó pass hay fail và trả kết quả về
+    + SecurityFilterChain sẽ match cái thông tin của Auth mà User cung cấp vào SecurityContextHolder
+    + nếu không SecurityFilterChain sẽ trả là null và sẽ yêu cầu Auth là true mới cho request đi đến các Controller
