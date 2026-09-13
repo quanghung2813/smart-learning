@@ -26,3 +26,5 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
     """)
     List<EnrollmentResponse> myEnrollment(@Param("userId") long userId);
 }
+
+
